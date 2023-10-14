@@ -10,20 +10,22 @@ class HomeInitialEvent extends HomeEvent{
 
 //Handling event of Wishlist button clicked on home page
 class HomeProductWishListButtonClickEvent extends HomeEvent{
-
+  final ProductDataModel productDataModelClicked;
+  HomeProductWishListButtonClickEvent({
+    required this.productDataModelClicked,
+});
 }
 
 //Handling event of Cart button clicked on home page
 class HomeProductCartButtonClickedEvent extends HomeEvent{
-
+  final ProductDataModel productDataModelClicked;
+  HomeProductCartButtonClickedEvent({
+    required this.productDataModelClicked,
+  });
 }
 
 //Handling event of navigating to wishlist page from home page
-class HomeWishListButtonNavigateEvent extends HomeEvent{
-
-}
+class HomeWishListButtonNavigateEvent extends HomeEvent{}
 
 //Handling event of navigating to cart page from home page
-class HomeCartButtonNavigateEvent extends HomeEvent{
-
-}
+class HomeCartButtonNavigateEvent extends HomeEvent{}
