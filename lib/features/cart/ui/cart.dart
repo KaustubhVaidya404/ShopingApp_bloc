@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shopingapp_bloc/features/cart/bloc/cart_bloc.dart';
-import 'package:shopingapp_bloc/features/cart/ui/widget/CartTile.dart';
+import 'package:shopingapp_bloc/features/cart/ui/widget/carttile.dart';
 
 class Cart extends StatefulWidget {
   const Cart({super.key});
