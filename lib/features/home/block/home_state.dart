@@ -11,7 +11,12 @@ class HomeInitial extends HomeState {}
 class HomeLoadingState extends HomeState{}
 
 //State building the ui after loading the data from server
-class HomeSuccessState extends HomeState{}
+class HomeSuccessState extends HomeState{
+  late final List<ProductDataModel> products;
+  HomeSuccessState({
+    required this.products
+});
+}
 
 //State to display if there is any error
 class HomeErrorState extends HomeState{}
