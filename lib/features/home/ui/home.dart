@@ -20,23 +20,32 @@ class _HomeState extends State<Home> {
     homeBloc.add(HomeInitialEvent());
     super.initState();
   }
+
   final HomeBloc homeBloc = HomeBloc();
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<HomeBloc, HomeState>(
       bloc: homeBloc,
       listenWhen: (previous, current) => current is HomeActionState,
-      buildWhen: (previous, current) => current is !HomeActionState,
+      buildWhen: (previous, current) => current is! HomeActionState,
       listener: (context, state) {
-        if(state is HomeCartNavigationActionState) {
-          Navigator.push(context, MaterialPageRoute(builder: (context) => const Cart()));
-        }
-        else if(state is HomeProductWishListNavigationActionState) {
-          Navigator.push(context, MaterialPageRoute(builder: (context) => const WishList()));
+        if (state is HomeCartNavigationActionState) {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => const Cart()));
+        } else if (state is HomeProductWishListNavigationActionState) {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const WishList()));
+        } else if (state is HomeProductAddedToWishListActionState) {
+          ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('Product added to wishlist'), duration: Duration(seconds: 1),));
+        } else if (state is HomeProductAddedToCartActionState) {
+          ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('Product added to cart'), duration: Duration(seconds: 1),));
         }
       },
       builder: (context, state) {
-        switch (state.runtimeType){
+        switch (state.runtimeType) {
           case HomeLoadingState:
             return buildHomeLoadingState();
           case HomeSuccessState:
@@ -49,39 +58,47 @@ class _HomeState extends State<Home> {
     );
   }
 
-  Scaffold buildHomeErrorState() => const Scaffold(body: Center(child: Text('Error'),),);
+  Scaffold buildHomeErrorState() => const Scaffold(
+        body: Center(
+          child: Text('Error'),
+        ),
+      );
 
   Scaffold buildHomeSuccessState(state) {
     final successState = state as HomeSuccessState;
     return Scaffold(
-            appBar: AppBar(
-              backgroundColor: Colors.teal,
-
-              title: const Text(
-                  'ShopIt'
-              ),
-              actions: [
-                IconButton(onPressed: (){
-                  homeBloc.add(HomeWishListButtonNavigateEvent());
-                }, icon: const Icon(Icons.favorite_border)),
-                IconButton(onPressed: (){
-                  homeBloc.add(HomeCartButtonNavigateEvent());
-                }, icon: const Icon(Icons.shopping_cart_outlined)),
-              ],
-            ),
+      appBar: AppBar(
+        backgroundColor: Colors.teal,
+        title: const Text('ShopIt'),
+        actions: [
+          IconButton(
+              onPressed: () {
+                homeBloc.add(HomeWishListButtonNavigateEvent());
+              },
+              icon: const Icon(Icons.favorite_border)),
+          IconButton(
+              onPressed: () {
+                homeBloc.add(HomeCartButtonNavigateEvent());
+              },
+              icon: const Icon(Icons.shopping_cart_outlined)),
+        ],
+      ),
       body: ListView.builder(
-        itemCount: successState.products.length,
-          itemBuilder: (context, index){
-        return ProductTileWidget(productDataModel: successState.products[index]);
-      }),
-          );
+          itemCount: successState.products.length,
+          itemBuilder: (context, index) {
+            return ProductTileWidget(
+              productDataModel: successState.products[index],
+              homeBloc: homeBloc,
+            );
+          }),
+    );
   }
 
   Scaffold buildHomeLoadingState() {
     return const Scaffold(
-            body: Center(
-              child: CircularProgressIndicator(),
-            ),
-          );
+      body: Center(
+        child: CircularProgressIndicator(),
+      ),
+    );
   }
 }

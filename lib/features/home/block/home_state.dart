@@ -27,7 +27,8 @@ class HomeProductWishListNavigationActionState extends HomeActionState{}
 //State for navigating to cart state
 class HomeCartNavigationActionState extends HomeActionState{}
 
-//State for adding the product to wishlist
+//State for product added to wishlist
+class HomeProductAddedToWishListActionState extends HomeActionState{}
 
-
-//State for adding the product to cart
+//State for product added to cart
+class HomeProductAddedToCartActionState extends HomeActionState{}
