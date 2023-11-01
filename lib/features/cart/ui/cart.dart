@@ -24,7 +24,7 @@ class _CartState extends State<Cart> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.teal,
-        title: const Text('ShopIt'),
+        title: const Text('Cart'),
       ),
       body: BlocConsumer<CartBloc, CartState>(
         bloc: cartBloc,
